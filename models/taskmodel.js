@@ -6,16 +6,60 @@ var taskSchema = mongoose.Schema({
 		type:String,
 		required: true
 	},
+	
 	create_date:{
 		type:Date,
 		default:Date.now
+	},
+
+	update_date:{
+		type:Date,
+		default:Date.now
+	},
+	complete_date:{
+		type:Date,
+		default:Date.now
+	},
+
+	status:{
+		type:String,
+		enum: ['done', 'progress', 'new'],
+		default:'new'
+	},
+
+	user:{
+		type:String,
+		required:false
+	},
+
+	category:{
+		type:String,
+		enum: ['Personal', 'Grocery', 'Office'],
+		default:'Personal'
+	},
+
+	assigner:{
+		type:String,
+		required:false
+	},
+
+	reminder_preference:{
+		type:String,
+		enum: ['E-Mail', 'Txt-Message', 'Alarm', 'DND'],
+		default:'Alarm'
+	},
+	note:{
+		type:String,
+		required:false
 	}
+
 });
 
 var Task = module.exports = mongoose.model('todolist',taskSchema);
-
+/*
 //get all tasks
 module.exports.getTasks = function(callback){
+	console.log("calling get");
 	Task.find(callback);
 }
 
@@ -32,7 +76,10 @@ module.exports.updateTitle= function(task,id,options,callback){
 	var update = {
 		title:task.title
 	};
-	Task.findOneAndUpdate(query,update,options,callback);
+	Task.findOneAndUpdate(query,update,options,callback,function(err){
+		if(err)
+			throw err;
+	});
 }
 //delete
 module.exports.deleteTask = function(id,callback){
@@ -40,3 +87,8 @@ module.exports.deleteTask = function(id,callback){
 	
 	Task.remove(query,callback);
 }
+
+module.exports.getTaskById = function(id,callback){
+	
+	Task.findById(id,callback);
+}*/

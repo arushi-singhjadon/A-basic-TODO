@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/tasksdb');
 
-var todo = require('./routes/todo');
+
+var home = require('./routes/home');
 
 
 var app = express();
@@ -26,8 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', todo);
-
+app.use('/', home);
+var todos = require('./routes/todos');
+app.use('/todos', todos);
 
 
 
