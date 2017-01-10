@@ -16,17 +16,17 @@ angular.module('app', ['ngRoute','ngResource'])
   */
 
   .factory('Todos', ['$resource', function($resource){
-          return $resource('/todos/:id', null, {
-            'update': { method:'PUT' }
-          });
+          return $resource('/todos/:id', {}, 
+            {
+              'update': { method:'PUT' }
+            });
         }])
 
   .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
           $scope.todos = Todos.query();
-          console.log
           $scope.save = function(){
           
-            var todo = new Todos({ title: $scope.newTodo, completed: false });
+            var todo = new Todos({ title: $scope.newTodo});
             todo.$save(function(){
               $scope.todos.push(todo);
               $scope.newTodo = ''; // clear textbox
