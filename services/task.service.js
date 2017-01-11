@@ -64,7 +64,8 @@ module.exports.updateTitle= function(task,id,callback){
 	var query = {_id: id};
 	var update = {
 		title:task.title,
-		note:task.note
+		note:task.note,
+		update_date:task.update_date
 	};
 	Task.findOneAndUpdate(query,update,function(err,result){
 		if(err){

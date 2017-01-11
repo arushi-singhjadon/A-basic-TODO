@@ -59,14 +59,15 @@ angular.module('app', ['ngRoute','ngResource','ui.bootstrap','ngSanitize'])
 				});
 			},
 
-			editTodo: function(title, note, id, callback){
+			editTodo: function(title, note, id, dt, callback){
 
 				$http({
 				 	method: 'PUT', 
 				 	url: '/todos/'+id,
 				 	data:{
 				 		'title' : title,
-				 		'note' : note
+				 		'note' : note,
+				 		'update_date': dt
 				 	}
 				 })
 
@@ -125,7 +126,7 @@ angular.module('app', ['ngRoute','ngResource','ui.bootstrap','ngSanitize'])
 
 
 					 $scope.paginate = function(value) {
-					 	
+
 					    var begin, end, index;
 					    begin = ($scope.currentPage - 1) * $scope.numPerPage;
 					    end = begin + $scope.numPerPage;
@@ -169,7 +170,7 @@ angular.module('app', ['ngRoute','ngResource','ui.bootstrap','ngSanitize'])
 					$scope.save = function() {
 				        $scope.page = 'list';
 				        console.log($scope.x + " " + $scope.title);
-				        Todos.editTodo($scope.title, $scope.note, $scope.x, $scope.editTodoCallback);
+				        Todos.editTodo($scope.title, $scope.note, $scope.x,new Date(), $scope.editTodoCallback);
 
 				    }
 
@@ -178,8 +179,9 @@ angular.module('app', ['ngRoute','ngResource','ui.bootstrap','ngSanitize'])
 				    	$scope.x=id;
 				    	$scope.title= title;
 				    	$scope.note = note;
-				    	//console.log(title+"  "+note);
 				    	$scope.page= 'editor';
+				    	//var dt = new Date();
+
 				    }
 				    $scope.deleteTodoCallback = function(result) {
 						console.log(result);
@@ -190,10 +192,14 @@ angular.module('app', ['ngRoute','ngResource','ui.bootstrap','ngSanitize'])
 				    }
 		}])
 	
- .controller('TodoDetailCtrl', ['$scope', 'Todos', function ($scope, $routeParams, Todos) {
-				
-			
-	}])
+ .controller('TodoDetailCtrl', ['$scope', '$routeParams', 'Todos', function ($scope, $routeParams, Todos) {
+
+	    $scope.getTodoDetailsCallback = function(result) {
+				$scope.todo = result;
+		}	
+
+	    Todos.getTodoDetails($routeParams.id,$scope.getTodoDetailsCallback);
+  }])
 
 	.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider
@@ -205,5 +211,7 @@ angular.module('app', ['ngRoute','ngResource','ui.bootstrap','ngSanitize'])
 			.when('/:id', {
 				templateUrl: '/todoDetails.html',
 				controller: 'TodoDetailCtrl'
-		 });
+		 })
+
+			//$locationProvider.html5Mode(true);
 	}]);
