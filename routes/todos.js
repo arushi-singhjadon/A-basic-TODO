@@ -50,9 +50,10 @@ router.post('/', function(req,res,next){
 	
 });
 
-router.put('/:_id', function(req,res,next){
-	var id= req.params._id;
+router.put('/:id', function(req,res,next){
+	var id= req.params.id;
 	var updatedTask = req.body;
+	console.log(updatedTask);
 	task.updateTitle(updatedTask,id,function(err,tasks){
 		if(err){
 			throw err;

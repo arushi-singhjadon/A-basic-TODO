@@ -1,54 +1,209 @@
-angular.module('app', ['ngRoute','ngResource'])
 
- /*.factory('Todos', ['$http', function($http){
-    return $http.get('/todos');
-  }])
+angular.module('app', ['ngRoute','ngResource','ui.bootstrap','ngSanitize'])
 
-  // Controller
-  .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
-    Todos.success(function(data){
-      $scope.todos = data;
-    }).error(function(data, status){
-      console.log(data, status);
-      $scope.todos = [];
-    });
-  }])
-  */
+ 
+	.factory('Todos', ['$http', function($http) {         
+		return {
+			
+			getAllTodos: function(callback){
 
-  .factory('Todos', ['$resource', function($resource){
-          return $resource('/todos/:id', {}, 
-            {
-              'update': { method:'PUT' }
-            });
-        }])
+				$http({
+				 	method: 'GET', 
+				 	url: '/todos'
+				})
+				.success (function(response){
+					console.log(response);
+						if(callback){
+							callback(response);
+						}
+				})
+				.error (function(response){
+						console.error(response);
+				});
+			},
 
-  .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
-          $scope.todos = Todos.query();
-          $scope.save = function(){
-          
-            var todo = new Todos({ title: $scope.newTodo});
-            todo.$save(function(){
-              $scope.todos.push(todo);
-              $scope.newTodo = ''; // clear textbox
-            });
-          }
-    }])
-  
- .controller('TodoDetailCtrl', ['$scope', '$routeParams', 'Todos', function ($scope, $routeParams, Todos) {
-   // $scope.todo = Todos[$routeParams.id];
-   console.log("Hello");
-      $scope.todo = Todos.get({id: $routeParams.id });
-  }])
+			getTodoDetails: function(id,callback){
 
-  .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: '/todos.html',
-        controller: 'TodoController'
-      })
-    
-      .when('/:id', {
-        templateUrl: '/todoDetails.html',
-        controller: 'TodoDetailCtrl'
-     });
-  }]);
+				$http({
+				 	method: 'GET', 
+				 	url: '/todos/'+id
+				})
+				.success (function(response){
+					console.log(response);
+						if(callback){
+							callback(response);
+						}
+				})
+				.error (function(response){
+						console.error(response);
+				});
+			},
+			//post in database
+			postTodo: function(title,note, callback){
+
+				$http({
+				 	method: 'POST', 
+				 	url: '/todos',
+				 	data:{
+				 		'title' : title,
+				 		'note' : note
+				 	}
+				})
+				.success (function(response){
+						if(callback){
+							callback(response);
+						}
+				})
+				.error (function(response){
+						console.error(response);
+				});
+			},
+
+			editTodo: function(title, note, id, callback){
+
+				$http({
+				 	method: 'PUT', 
+				 	url: '/todos/'+id,
+				 	data:{
+				 		'title' : title,
+				 		'note' : note
+				 	}
+				 })
+
+				.success (function(response){
+						if(callback){
+							callback(response);
+						}
+				})
+				.error (function(response){
+						console.error(response);
+				});
+			},
+
+			deleteTodo: function(id,callback){
+
+				$http({
+				 	method: 'DELETE', 
+				 	url: '/todos/'+id,
+				 	
+				})
+				.success (function(response){
+						if(callback){
+							callback(response);
+						}
+				})
+				.error (function(response){
+						console.error(response);
+				});
+			}
+
+
+
+			
+		};
+	}])
+
+
+	.controller('TodoController', ['$scope','$http','Todos', '$route',function ($scope, $resource,Todos,$route) {
+					
+					$scope.newTodoTitle = "Add title of new task";
+					$scope.newTodoNote = "Add note of new task";
+
+					$scope.reloadRoute = function() {
+   						$route.reload();
+   					}
+
+					// get all todos
+					$scope.getTodosCallback = function(result) {
+						$scope.todos = result;
+						$scope.totalItems = $scope.todos.length;
+					
+					}		
+
+					$scope.currentPage = 1;
+					$scope.numPerPage = 5;
+
+
+					 $scope.paginate = function(value) {
+					 	
+					    var begin, end, index;
+					    begin = ($scope.currentPage - 1) * $scope.numPerPage;
+					    end = begin + $scope.numPerPage;
+					    index = $scope.todos.indexOf(value);
+					    return (begin <= index && index < end);
+					  };
+
+					 
+					Todos.getAllTodos($scope.getTodosCallback);
+					
+					$scope.done=false;
+					
+					//save a todo
+					$scope.postTodoCallback = function(result) {
+						console.log(result);
+					}
+
+					$scope.saveThis = function(){
+						//console.log(newTodo);
+						Todos.postTodo($scope.newTodoTitle,$scope.newTodoNote,$scope.postTodoCallback);	
+						$scope.reloadRoute();
+					}
+				//	upon click of checkbox
+					$scope.updateStatus = function(id){
+							
+
+					}
+
+					$scope.page = 'list';
+
+					$scope.editTodoCallback = function(result) {
+						console.log(result);
+						$scope.reloadRoute();
+					}
+
+					
+    				$scope.cancel = function() {
+					        $scope.page = 'list';
+					}
+
+					$scope.save = function() {
+				        $scope.page = 'list';
+				        console.log($scope.x + " " + $scope.title);
+				        Todos.editTodo($scope.title, $scope.note, $scope.x, $scope.editTodoCallback);
+
+				    }
+
+				    $scope.edit = function(id,title,note){
+
+				    	$scope.x=id;
+				    	$scope.title= title;
+				    	$scope.note = note;
+				    	//console.log(title+"  "+note);
+				    	$scope.page= 'editor';
+				    }
+				    $scope.deleteTodoCallback = function(result) {
+						console.log(result);
+					}
+				    $scope.changeStatus = function(id){
+				    	Todos.deleteTodo(id,$scope.deleteTodoCallback);
+				    	$scope.reloadRoute();
+				    }
+		}])
+	
+ .controller('TodoDetailCtrl', ['$scope', 'Todos', function ($scope, $routeParams, Todos) {
+				
+			
+	}])
+
+	.config(['$routeProvider', function ($routeProvider) {
+		$routeProvider
+			.when('/',	  {
+				templateUrl: '/todos.html',
+				controller: 'TodoController'
+			})
+		
+			.when('/:id', {
+				templateUrl: '/todoDetails.html',
+				controller: 'TodoDetailCtrl'
+		 });
+	}]);

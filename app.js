@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/tasksdb');
-
+mongoose.Promise = require('bluebird');
 
 var home = require('./routes/home');
 

@@ -13,16 +13,19 @@ module.exports.getTasks = function(count,callback){
 			return callback(null,result);
 	});*/
 
-	Task.find().paginate(count, 2).exec(function(err, docs) {
-   
-    if(err){
-			throw err;
-		}
-		else{
-			//console.log(result);
-			return callback(null,docs);
-			//console.log('docs: ', docs)
-		}
+	//Task.find({status:{$ne:'done'}}).paginate(count, 2).exec(function(err, docs) {
+   	//Task.find().paginate(count, 2).exec(function(err,docs) {
+   	Task.find({status:{$ne:'done'}}).exec(function(err,result){
+	    if(err)
+	    	{
+	    		console.log(err);
+				throw err;
+			}
+			else{
+				//console.log(result);
+				return callback(null,result);
+				//console.log('docs: ', docs)
+			}
   });
 }
 
@@ -60,7 +63,8 @@ module.exports.addTask = function(newTask,callback){
 module.exports.updateTitle= function(task,id,callback){
 	var query = {_id: id};
 	var update = {
-		title:task.title
+		title:task.title,
+		note:task.note
 	};
 	Task.findOneAndUpdate(query,update,function(err,result){
 		if(err){
