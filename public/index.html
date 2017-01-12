@@ -17,141 +17,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap//3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>  
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>  
 
-
-
-<!-- Template to view the todos -->   
-<script type="text/ng-template" id="/todos.html">
-  
-  <div class = "container" ng-show="page === 'list'" >
-      <center>
-        <table class= "table table-nonfluid table-striped ">
-          <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr ng-repeat = "todo in todos |filter: paginate">
-                  <td>
-                      <a href="#/{{todo._id}}">{{todo.title}}</a>
-                  </td>
-                   <td>
-                      {{todo.note}}
-                  </td>
-                  <td>
-                      <button class="btn btn-primary" ng-click="edit(todo._id,todo.title,todo.note)">Edit</button>
-                  </td>
-
-                  <td>
-                      <button class="btn btn-danger" ng-click="changeStatus(todo._id)">Delete</button>
-                  </td>
-              </tr>
-              <tr>
-                <td >
-                  <input type="text" ng-model="newTodoTitle">
-                </td>
-
-                <td >
-                  <input type="text" ng-model="newTodoNote">
-                </td>
-                <td>
-                </td>
-                <td >
-                  <button ng-click="saveThis()" class="btn btn-primary">Create</button>
-                </td>
-              </tr>
-          </tbody>
-        </table>
-
-        <pagination total-items="totalItems" ng-model="currentPage"
-          max-size="5" boundary-links="true"
-          items-per-page="numPerPage" class="pagination-sm">
-        </pagination>
-    
-      </center>
-  </div>
-
-  <div class = "container" ng-show="page === 'editor'">
-    <table class = "table table-striped">
-      <thead>
-        <th> Title </th>
-        <th> Note </th>
-        <th></th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-              Title: <input ng-model="title">
-          </td>
-
-          <td>
-              Note: <input ng-model="note">
-          </td>
-
-          <td>
-              <button ng-click="save()" class="btn btn-success">Save</button>
-          </td>
-
-          <td>
-              <button ng-click="cancel()" class="btn btn-danger">Cancel</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div> 
-
-</script>
-  
-
-
-<!-- Template to view the details of todos -->   
-<script type="text/ng-template" id="/todoDetails.html">
-  <h1>{{ todo.title }}</h1>
-  <ul class="list-group">
-      <li class="list-group-item">
-          Status: {{todo.status}}
-      </li>
-      <li class="list-group-item">
-          You created this task on: {{todo.create_date}}
-      </li>
-      <li class="list-group-item">
-          You last updated this task on: {{todo.update_date}}
-      </li>
-       <li class="list-group-item">
-          You hve to complete this this task by: {{todo.complete_date}}
-      </li>
-       <li class="list-group-item">
-          Creator: {{todo.user}}
-      </li>
-      <li class="list-group-item">
-          Assigner: {{todo.assigner}}
-      </li>
-      <li class="list-group-item">
-          Category: {{todo.category}}
-      </li>
-      <li class="list-group-item">
-          Reminder Prefernce: {{todo.reminder_preference}}
-      </li>
-      <li class="list-group-item">
-          Note: {{todo.note}}
-      </li>
-      
-
-  </ul>
-  
-</script>
+<!--script files -->
 <script src = "javascripts/myapp.module.js"></script>
 <script src = "javascripts/controllers/todos.controller.js"></script>
 <script src = "javascripts/controllers/todoDetails.controller.js"></script>
 <script src = "javascripts/services/todo.service.js"></script>
 
-
-<!--<script src="dosomething.js"></script>-->
 
 </body>
 </html>

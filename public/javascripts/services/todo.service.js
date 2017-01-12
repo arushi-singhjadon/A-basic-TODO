@@ -90,8 +90,10 @@ angular.module('todoService', ['ngRoute'])
 				})
 				.success (function(response){
 						if(callback){
+							console.log("In factory response is:"+response);
 							callback(response);
 						}
+						//$scope.todos = data; 
 				})
 				.error (function(response){
 						console.error(response);
@@ -107,12 +109,12 @@ angular.module('todoService', ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
 		$routeProvider
 			.when('/',	  {
-				templateUrl: '/todos.html',
+				templateUrl: 'templates/todos.template.html',
 				controller: 'TodoController'
 			})
 		
 			.when('/:id', {
-				templateUrl: '/todoDetails.html',
+				templateUrl: 'templates/todoDetails.template.html',
 				controller: 'TodoDetailCtrl'
 		 })
 

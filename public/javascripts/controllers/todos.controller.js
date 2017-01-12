@@ -6,6 +6,9 @@ angular.module('todoControllerModule', ['ngRoute'])
 					
 					$scope.newTodoTitle = "Add title of new task";
 					$scope.newTodoNote = "Add note of new task";
+					$scope.filteredTodos = [];
+				    $scope.numPerPage = 5;
+				    $scope.currentPage = 1;
 
 					$scope.reloadRoute = function() {
    						$route.reload();
@@ -14,22 +17,41 @@ angular.module('todoControllerModule', ['ngRoute'])
 					// get all todos
 					$scope.getTodosCallback = function(result) {
 						$scope.todos = result;
-						$scope.totalItems = $scope.todos.length;
+						//$scope.totalItems = $scope.todos.length;
+						$scope.figureOutTodosToDisplay();
+						
 					
 					}		
 
-					$scope.currentPage = 1;
-					$scope.numPerPage = 5;
+					
 
-
-					 $scope.paginate = function(value) {
-
-					    var begin, end, index;
-					    begin = ($scope.currentPage - 1) * $scope.numPerPage;
-					    end = begin + $scope.numPerPage;
-					    index = $scope.todos.indexOf(value);
-					    return (begin <= index && index < end);
+					$scope.figureOutTodosToDisplay = function() {
+					    var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+					   // console.log($scope.numPerPage);
+					   // console.log("begin= "+begin);
+					    var end = begin + $scope.numPerPage;
+					  //  console.log("end = "+end);
+					    $scope.filteredTodos = $scope.todos.slice(begin, end);
+					    console.log($scope.filteredTodos);
 					  };
+
+					
+
+					$scope.pageChanged = function() {
+						console.log("page changed");
+					    $scope.figureOutTodosToDisplay();
+					  };
+
+
+					 // $scope.paginate = function(value) {
+
+
+					 //    var begin, end, index;
+					 //    begin = ($scope.currentPage - 1) * $scope.numPerPage;
+					 //    end = begin + $scope.numPerPage;
+					 //    index = $scope.todos.indexOf(value);
+					 //    return (begin <= index && index < end);
+					 //  };
 
 					 
 					Todos.getAllTodos($scope.getTodosCallback);
@@ -44,7 +66,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 					$scope.saveThis = function(){
 						//console.log(newTodo);
 						Todos.postTodo($scope.newTodoTitle,$scope.newTodoNote,$scope.postTodoCallback);	
-						$scope.reloadRoute();
+						//$scope.reloadRoute();
 					}
 				//	upon click of checkbox
 					$scope.updateStatus = function(id){
@@ -81,10 +103,12 @@ angular.module('todoControllerModule', ['ngRoute'])
 
 				    }
 				    $scope.deleteTodoCallback = function(result) {
-						console.log(result);
+						console.log("Result is: "+result);
+					//	$scope.todos=result;
+					    //$scope.todos = result;
 					}
 				    $scope.changeStatus = function(id){
 				    	Todos.deleteTodo(id,$scope.deleteTodoCallback);
-				    	$scope.reloadRoute();
+				    	//$scope.reloadRoute();
 				    }
 		}])

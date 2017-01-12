@@ -1,0 +1,35 @@
+<!-- Template to view the details of todos -->   
+
+  <h1>{{ todo.title }}</h1>
+  <ul class="list-group">
+      <li class="list-group-item">
+          Status: {{todo.status}}
+      </li>
+      <li class="list-group-item">
+          You created this task on: {{todo.create_date}}
+      </li>
+      <li class="list-group-item">
+          You last updated this task on: {{todo.update_date}}
+      </li>
+       <li class="list-group-item">
+          You hve to complete this this task by: {{todo.complete_date}}
+      </li>
+       <li class="list-group-item">
+          Creator: {{todo.user}}
+      </li>
+      <li class="list-group-item">
+          Assigner: {{todo.assigner}}
+      </li>
+      <li class="list-group-item">
+          Category: {{todo.category}}
+      </li>
+      <li class="list-group-item">
+          Reminder Prefernce: {{todo.reminder_preference}}
+      </li>
+      <li class="list-group-item">
+          Note: {{todo.note}}
+      </li>
+      
+
+  </ul>
+  
