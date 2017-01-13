@@ -22,6 +22,7 @@ angular.module('todoService', ['ngRoute'])
 				});
 			},
 
+			
 			getTodoDetails: function(id,callback){
 
 				$http({
@@ -39,14 +40,15 @@ angular.module('todoService', ['ngRoute'])
 				});
 			},
 			//post in database
-			postTodo: function(title,note, callback){
+			postTodo: function(title,note,callback){
 
 				$http({
 				 	method: 'POST', 
 				 	url: '/todos',
 				 	data:{
 				 		'title' : title,
-				 		'note' : note
+				 		'note' : note,
+
 				 	}
 				})
 				.success (function(response){

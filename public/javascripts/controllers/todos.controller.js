@@ -4,11 +4,14 @@ angular.module('todoControllerModule', ['ngRoute'])
 
 	.controller('TodoController', ['$scope','$http','Todos', '$route',function ($scope, $resource,Todos,$route,$location) {
 					
-					$scope.newTodoTitle = "Add title of new task";
-					$scope.newTodoNote = "Add note of new task";
+					//$scope.newTodoTitle = "Add title of new task";
+					//$scope.newTodoNote = "Add note of new task";
 					$scope.filteredTodos = [];
 				    $scope.numPerPage = 5;
 				    $scope.currentPage = 1;
+				    $scope.categories = [{"id": 1, "name": "personal"},
+    									{"id": 2, "name": "office"},
+    									{"id": 3, "name": "grocery"}];
 
 					$scope.reloadRoute = function() {
    						$route.reload();
@@ -23,16 +26,15 @@ angular.module('todoControllerModule', ['ngRoute'])
 					
 					}		
 
-					
+								
 
 					$scope.figureOutTodosToDisplay = function() {
 					    var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-					   // console.log($scope.numPerPage);
-					   // console.log("begin= "+begin);
+					   
 					    var end = begin + $scope.numPerPage;
-					  //  console.log("end = "+end);
+					
 					    $scope.filteredTodos = $scope.todos.slice(begin, end);
-					    console.log($scope.filteredTodos);
+					    //console.log("filteredTodos= "+$scope.filteredTodos);
 					  };
 
 					
@@ -55,8 +57,15 @@ angular.module('todoControllerModule', ['ngRoute'])
 
 					 
 					Todos.getAllTodos($scope.getTodosCallback);
-					
-					$scope.done=false;
+
+					$scope.getCategoriesCallback = function(result) {
+						$scope.categories = result;
+						console.log($scope.categories);
+						
+					}
+
+					//Todos.getAllCategories($scope.getCategoriesCallback);
+					//$scope.done=false;
 					
 					//save a todo
 					$scope.postTodoCallback = function(result) {
@@ -65,6 +74,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 
 					$scope.saveThis = function(){
 						//console.log(newTodo);
+						//console.log($scope.selectedFacilityId);
 						Todos.postTodo($scope.newTodoTitle,$scope.newTodoNote,$scope.postTodoCallback);	
 						$scope.reloadRoute();
 					}
@@ -85,7 +95,8 @@ angular.module('todoControllerModule', ['ngRoute'])
     				$scope.cancel = function() {
 					        $scope.page = 'list';
 					}
-
+					
+					
 					$scope.save = function() {
 				        $scope.page = 'list';
 				        console.log($scope.x + " " + $scope.title);

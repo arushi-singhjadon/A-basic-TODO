@@ -1,11 +1,20 @@
-  
   <div class = "container" ng-show="page === 'list'" >
+
+  		<div class="jumbotron">
+		    <h1>A Simple todo Application <span class="label label-info">{{ todos.length }}</span></h1> 
+		    <p>Manage your daily todos here</p> 
+		</div>
+		
+
+      
+
+     
       <center>
         <table class= "table table-nonfluid table-striped ">
           <thead>
               <tr>
-                <th></th>
-                <th></th>
+                <th> Task</th>
+                <th> Notes</th>
                 <th></th>
               </tr>
           </thead>
@@ -17,6 +26,7 @@
                    <td>
                       {{todo.note}}
                   </td>
+                  
                   <td>
                       <button class="btn btn-primary" ng-click="edit(todo._id,todo.title,todo.note)">Edit</button>
                   </td>
@@ -27,14 +37,17 @@
               </tr>
               <tr>
                 <td >
-                  <input type="text" ng-model="newTodoTitle">
+                  <input type="text" ng-model="newTodoTitle" >
                 </td>
 
                 <td >
-                  <input type="text" ng-model="newTodoNote">
+                  <input type="text" ng-model="newTodoNote" >
                 </td>
-                <td>
-                </td>
+                <!--<td>
+                  <select name="selectedFacilityId" ng-model="selectedFacilityId">
+                         <option ng-repeat="cat in categories" value="{{cat.name}}" ">{{cat.name}}</option>
+                     </select> 
+                </td>-->
                 <td >
                   <button ng-click="saveThis()" class="btn btn-primary">Create</button>
                 </td>

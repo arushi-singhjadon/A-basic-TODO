@@ -2,30 +2,31 @@
 <head>
   <title>A basic todo app</title>
   <base href="/">
+
+  <!-- Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-sanitize.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.js"></script>
+  <script src="https://code.angularjs.org/1.4.2/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap//3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>  
+
+  <!--script files -->
+  <script src = "javascripts/myapp.module.js"></script>
+  <script src = "javascripts/controllers/todos.controller.js"></script>
+  <script src = "javascripts/controllers/todoDetails.controller.js"></script>
+  <script src = "javascripts/services/todo.service.js"></script>
 </head>
 <body>
 
-<ng-view></ng-view>
-
-<!-- Libraries -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-sanitize.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.js"></script>
-<script src="https://code.angularjs.org/1.4.2/angular-animate.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap//3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>  
-
-<!--script files -->
-<script src = "javascripts/myapp.module.js"></script>
-<script src = "javascripts/controllers/todos.controller.js"></script>
-<script src = "javascripts/controllers/todoDetails.controller.js"></script>
-<script src = "javascripts/services/todo.service.js"></script>
+  <ng-view></ng-view>
 
 
 </body>
+
+
 </html>
