@@ -9,10 +9,11 @@ angular.module('todoControllerModule', ['ngRoute'])
 					$scope.filteredTodos = [];
 				    $scope.numPerPage = 5;
 				    $scope.currentPage = 1;
-				    $scope.categories = [{"id": 1, "name": "personal"},
-    									{"id": 2, "name": "office"},
-    									{"id": 3, "name": "grocery"}];
+				    $scope.categories = [{"id": 1, "name": "Personal"},
+    									{"id": 2, "name": "Grocery"},
+    									{"id": 3, "name": "Office"}];
 
+    				//'Personal', 'Grocery', 'Office'
 					$scope.reloadRoute = function() {
    						$route.reload();
    					}
@@ -75,8 +76,10 @@ angular.module('todoControllerModule', ['ngRoute'])
 					$scope.saveThis = function(){
 						//console.log(newTodo);
 						//console.log($scope.selectedFacilityId);
-						Todos.postTodo($scope.newTodoTitle,$scope.newTodoNote,$scope.postTodoCallback);	
-						$scope.reloadRoute();
+						if($scope.newTodoTitle && $scope.newTodoNote){
+							Todos.postTodo($scope.newTodoTitle,$scope.newTodoNote,$scope.selectedFacilityId,$scope.postTodoCallback);	
+							$scope.reloadRoute();
+						}
 					}
 				//	upon click of checkbox
 					$scope.updateStatus = function(id){

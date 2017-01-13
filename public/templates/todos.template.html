@@ -15,7 +15,7 @@
               <tr>
                 <th> Task</th>
                 <th> Notes</th>
-                <th></th>
+                <th> Category</th>
               </tr>
           </thead>
           <tbody>
@@ -26,7 +26,9 @@
                    <td>
                       {{todo.note}}
                   </td>
-                  
+                  <td>
+                      {{todo.category}}
+                  </td>
                   <td>
                       <button class="btn btn-primary" ng-click="edit(todo._id,todo.title,todo.note)">Edit</button>
                   </td>
@@ -43,11 +45,11 @@
                 <td >
                   <input type="text" ng-model="newTodoNote" >
                 </td>
-                <!--<td>
-                  <select name="selectedFacilityId" ng-model="selectedFacilityId">
+                <td>
+                  <select name="selectedFacilityId" ng-model="selectedFacilityId"> 
                          <option ng-repeat="cat in categories" value="{{cat.name}}" ">{{cat.name}}</option>
                      </select> 
-                </td>-->
+                </td>
                 <td >
                   <button ng-click="saveThis()" class="btn btn-primary">Create</button>
                 </td>
