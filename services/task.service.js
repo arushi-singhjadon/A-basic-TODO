@@ -15,7 +15,7 @@ module.exports.getTasks = function(count,callback){
 
 	//Task.find({status:{$ne:'done'}}).paginate(count, 2).exec(function(err, docs) {
    	//Task.find().paginate(count, 2).exec(function(err,docs) {
-   	Task.find({status:{$ne:'done'}}).exec(function(err,result){
+   	Task.find({status:{$ne:'done'}}).sort({update_date: -1}).exec(function(err,result){
 	    if(err)
 	    	{
 	    		console.log(err);

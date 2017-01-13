@@ -119,4 +119,5 @@ angular.module('todoService', ['ngRoute'])
 		 })
 
 			//$locationProvider.html5Mode(true);
+			//$locationProvider.html5Mode(true);
 	}]);

@@ -2,7 +2,7 @@
 
 angular.module('todoControllerModule', ['ngRoute'])
 
-	.controller('TodoController', ['$scope','$http','Todos', '$route',function ($scope, $resource,Todos,$route) {
+	.controller('TodoController', ['$scope','$http','Todos', '$route',function ($scope, $resource,Todos,$route,$location) {
 					
 					$scope.newTodoTitle = "Add title of new task";
 					$scope.newTodoNote = "Add note of new task";
@@ -18,7 +18,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 					$scope.getTodosCallback = function(result) {
 						$scope.todos = result;
 						//$scope.totalItems = $scope.todos.length;
-						$scope.figureOutTodosToDisplay();
+							$scope.figureOutTodosToDisplay();
 						
 					
 					}		
@@ -66,7 +66,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 					$scope.saveThis = function(){
 						//console.log(newTodo);
 						Todos.postTodo($scope.newTodoTitle,$scope.newTodoNote,$scope.postTodoCallback);	
-						//$scope.reloadRoute();
+						$scope.reloadRoute();
 					}
 				//	upon click of checkbox
 					$scope.updateStatus = function(id){
@@ -109,6 +109,6 @@ angular.module('todoControllerModule', ['ngRoute'])
 					}
 				    $scope.changeStatus = function(id){
 				    	Todos.deleteTodo(id,$scope.deleteTodoCallback);
-				    	//$scope.reloadRoute();
+				    	$scope.reloadRoute();
 				    }
 		}])
