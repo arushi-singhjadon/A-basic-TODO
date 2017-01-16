@@ -83,11 +83,7 @@ module.exports.updateTitle= function(task,id,callback){
 
 module.exports.deleteTask = function(id,callback){
 	
-	var query = {_id: id};
-	var update = {
-		status:'done'
-	};
-	Task.findOneAndUpdate(query,update,function(err,result){
+	Task.remove({ _id: id },function(err,result){
 		if(err){
 			console.log(err);
 			throw err;
@@ -97,5 +93,5 @@ module.exports.deleteTask = function(id,callback){
 			return callback(null,result);
 		}
 	});
-	
+
 }

@@ -1,102 +1,100 @@
-  <div class = "container" ng-show="page === 'list'" >
-
-  		<div class="jumbotron">
-		    <h1>A Simple todo Application <span class="label label-info">{{ todos.length }}</span></h1> 
-		    <p>Manage your daily todos here</p> 
-		</div>
-		
-
-      
+<div class = "container" ng-show="page === 'list'" >
+ 	
+    <div class="jumbotron">
+		<h1>A Simple todo Application
+             <span class="label label-info">{{ todos.length }}</span>
+        </h1> 
+	    <p>Manage your daily todos here</p> 
+	</div>
+		  
+    <span> Number of todos to be displayed : 
+      <select ng-model='form1.type' required ng-options='option.value as option.value for option in arr'
+              ng-change='change()'>
+      </select>
+    </span>
 
      
-      <center>
+    <center>
         <table class= "table table-nonfluid table-striped ">
-          <thead>
-              <tr>
-                <th> Task</th>
-                <th> Notes</th>
-                <th> Category</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr ng-repeat = "todo in filteredTodos">
-                  <td>
-                      <a href="#/{{todo._id}}">{{todo.title}}</a>
-                  </td>
-                   <td>
-                      {{todo.note}}
-                  </td>
-                  <td>
-                      {{todo.category}}
-                  </td>
-                  <td>
-                      <button class="btn btn-primary" ng-click="edit(todo._id,todo.title,todo.note)">Edit</button>
-                  </td>
+            <thead>
+                <tr>
+                    <th> Task</th>
+                    <th> Notes</th>
+                    <th> Category</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                  <td>
-                      <button class="btn btn-danger" ng-click="changeStatus(todo._id)">Delete</button>
-                  </td>
-              </tr>
-              <tr>
-                <td >
-                  <input type="text" ng-model="newTodoTitle" >
-                </td>
+                <tr ng-repeat = "todo in filteredTodos">
+                    <td>
+                        <a href="#/{{todo._id}}">{{todo.title}}</a>
+                    </td>
+                    <td>
+                        {{todo.note}}
+                    </td>
+                    <td>
+                        {{todo.category}}
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="edit(todo._id,todo.title,todo.note)">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="changeStatus(todo._id)">Delete</button>
+                    </td>
+                </tr>
 
-                <td >
-                  <input type="text" ng-model="newTodoNote" >
-                </td>
-                <td>
-                  <select name="selectedFacilityId" ng-model="selectedFacilityId"> 
-                         <option ng-repeat="cat in categories" value="{{cat.name}}" ">{{cat.name}}</option>
-                     </select> 
-                </td>
-                <td >
-                  <button ng-click="saveThis()" class="btn btn-primary">Create</button>
-                </td>
-              </tr>
-          </tbody>
+                <tr>
+                    <td>
+                        <input type="text" ng-model="newTodoTitle" >
+                    </td>
+                    <td>
+                        <input type="text" ng-model="newTodoNote" >
+                    </td>
+                    <td>
+                        <select ng-model='form.type' required ng-options='option.value as option.name for option in typeOptions'>
+                            
+                        </select>
+                    </td>
+                    <td>
+                        <button ng-click="saveThis()" class="btn btn-primary">Create</button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
 
-       <pagination boundary-links="true" 
-    				max-size="3" 
-    				items-per-page="numPerPage"
-    				total-items="todos.length" 
-    				ng-model="currentPage" 
-    				ng-change="pageChanged()">
+        <pagination boundary-links="true" max-size="3" items-per-page="numPerPage" total-items="todos.length" 
+                    ng-model="CurrentPage" ng-change="pageChanged()">
     					
-    	</pagination> 
+        </pagination> 
     
-      </center>
-  </div>
+    </center>
+</div>
 
-  <div class = "container" ng-show="page === 'editor'">
+<div class = "container" ng-show="page === 'editor'">
     <table class = "table table-striped">
-      <thead>
-        <th> Title </th>
-        <th> Note </th>
-        <th></th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-              Title: <input ng-model="title">
-          </td>
-
-          <td>
-              Note: <input ng-model="note">
-          </td>
-
-          <td>
-              <button ng-click="save()" class="btn btn-success">Save</button>
-          </td>
-
-          <td>
-              <button ng-click="cancel()" class="btn btn-danger">Cancel</button>
-          </td>
-        </tr>
+        <thead>
+            <th> Title </th>
+            <th> Note </th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Title: <input ng-model="title">
+                </td>
+                <td>
+                    Note: <input ng-model="note">
+                </td>
+                <td>
+                    <button ng-click="save()" class="btn btn-success">Save</button>
+                </td>
+                <td>
+                    <button ng-click="cancel()" class="btn btn-danger">Cancel</button>
+                </td>
+            </tr>
       </tbody>
     </table>
-  </div> 
+</div> 
 
   

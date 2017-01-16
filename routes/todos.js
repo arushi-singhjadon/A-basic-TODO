@@ -1,14 +1,14 @@
 var express = require('express');
-var app= express();
+var app = express();
 var path = require('path');
 var router = express.Router();
 
-var task=require('../services/task.service.js');
+var task = require('../services/task.service.js');
 
-var count=1;
 router.get('/',function(req,res,next){
-
-	    task.getTasks(count,function(err,tasks){
+		count = req.body;
+		console.log(count);
+		task.getTasks(count,function(err,tasks){
 		console.log("something");
 		
 		if(err){

@@ -101,14 +101,10 @@ angular.module('todoService', ['ngRoute'])
 						console.error(response);
 				});
 			}
-
-
-
-			
+		
 		};
 	}])
-
-.config(['$routeProvider', function ($routeProvider) {
+	.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider
 			.when('/',	  {
 				templateUrl: 'templates/todos.template.html',
@@ -123,3 +119,4 @@ angular.module('todoService', ['ngRoute'])
 			//$locationProvider.html5Mode(true);
 			//$locationProvider.html5Mode(true);
 	}]);
+
