@@ -6,4 +6,5 @@ angular.module('todoDetailsControllerModule', ['ngRoute'])
 			$scope.todo = result;
 		}	
 	    Todos.getTodoDetails($routeParams.id,$scope.getTodoDetailsCallback);
-  }]);
+  	}
+]);

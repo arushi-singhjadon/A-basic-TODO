@@ -48,13 +48,13 @@ angular.module('todoControllerModule', ['ngRoute'])
 		    var begin = (($scope.currentPage - 1) * $scope.numPerPage);
 		    var end = begin + $scope.numPerPage;
 		    $scope.filteredTodos = $scope.todos.slice(begin, end);
-		 };
+		};
 	
 
 		$scope.pageChanged = function() {
 			console.log("page changed");
 		    $scope.figureOutTodosToDisplay();
-		  };
+		 };
 
 		Todos.getAllTodos($scope.getTodosCallback);
 	//	Todos.getAllTodos(1, $scope.numPerPage, $scope.getTodosCallback);
@@ -75,20 +75,20 @@ angular.module('todoControllerModule', ['ngRoute'])
 		$scope.editTodoCallback = function(result) {
 			console.log(result);
 			$scope.reloadRoute();
-		}
+		};
 
 		
 		$scope.cancel = function() {
 	        $scope.page = 'list';
-		}
+		};
 		
 		
 		$scope.save = function() {
 	        $scope.page = 'list';
 	        console.log($scope.x + " " + $scope.title);
-	        Todos.editTodo($scope.title, $scope.note, $scope.x,new Date(), $scope.editTodoCallback);
+	        Todos.editTodo($scope.title, $scope.note, $scope.x, $scope.editTodoCallback);
 
-	    }
+	    };
 
 	    $scope.edit = function(id,title,note){
 	    	$scope.x=id;
@@ -102,7 +102,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 		
 		};
 
-	    $scope.changeStatus = function(id) {
+	    $scope.delete = function(id) {
 	    	Todos.deleteTodo(id,$scope.deleteTodoCallback);
 	    	$scope.reloadRoute();
 	    };

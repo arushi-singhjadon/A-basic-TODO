@@ -60,7 +60,7 @@ angular.module('todoService', ['ngRoute'])
 				});
 			},
 
-			editTodo: function(title, note, id, dt, callback){
+			editTodo: function(title, note, id, callback){
 
 				$http({
 				 	method: 'PUT', 
@@ -68,7 +68,6 @@ angular.module('todoService', ['ngRoute'])
 				 	data:{
 				 		'title' : title,
 				 		'note' : note,
-				 		'update_date': dt
 				 	}
 				 })
 
@@ -100,8 +99,8 @@ angular.module('todoService', ['ngRoute'])
 						console.error(response);
 				});
 			}
-		
-	};
-}]);
+		};
+	}
+]);
 	
 

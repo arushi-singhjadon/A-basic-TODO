@@ -6,18 +6,18 @@ var router = express.Router();
 var task = require('../services/task.service.js');
 
 router.get('/',function(req,res,next){
-		count = req.body;
-		console.log(count);
-		task.getTasks(count,function(err,tasks){
+	count = req.body;
+	console.log(count);
+	task.getTasks(count,function(err,tasks){
 		console.log("something");
 		
 		if(err){
 			throw err;
-		} else{
+		} else {
 			count=count+1;
 			res.json(tasks);
 		}
-		
+	
 	});
 });
 
@@ -27,7 +27,6 @@ router.get('/:id', function(req, res, next) {
 	    if (err){
 	    	 return next(err);
 		} else {
-			
 			res.status(200).send(tasks);
 			//res.json(tasks);
 		}
