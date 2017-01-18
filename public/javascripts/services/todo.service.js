@@ -3,12 +3,17 @@
 angular.module('todoService', ['ngRoute'])
 	.factory('Todos', ['$http', function($http) {         
 		return {
-			
-			getAllTodos: function(callback){
+			getTodosinRange: function(begin,end,countonly,callback){
 
 				$http({
 				 	method: 'GET', 
-				 	url: '/todos'
+				 	url: '/todos',
+				 	params: {
+				 		begin:begin,
+				 		end:end,
+				 		countonly:countonly
+				 	}
+				 	
 				})
 				.success (function(response){
 					console.log(response);
@@ -20,7 +25,6 @@ angular.module('todoService', ['ngRoute'])
 						console.error(response);
 				});
 			},
-
 			
 			getTodoDetails: function(id,callback){
 

@@ -1,21 +1,33 @@
 Task = require('../models/taskmodel');
 
 //get all tasks
-module.exports.getTasks = function(count,callback){
-	
-	//Task.find({status:{$ne:'done'}}).paginate(count, 2).exec(function(err, docs) {
-   	//Task.find().paginate(count, 2).exec(function(err,docs) {
-   	Task.find({status:{$ne:'done'}}).sort({update_date: -1}).exec(function(err,result){
-	    if(err) {
-	    		console.log(err);
-				throw err;
-		} else {
-				return callback(null,result);
-		}
-  });
+module.exports.getTasks = function(begin,end,callback){
+   	var e = parseInt(end);
+   	var b = parseInt(begin);
+   	console.log("e= "+e+" and b= "+b);
+   	Task.find({status:{$ne:'done'}})
+   			.limit(e)
+   			.skip(e*(b-1))
+   			.sort({update_date: -1})
+   			.exec(function(err,result){
+			    if(err) {
+			    		console.log(err);
+						throw err;
+				} else {
+						return callback(null,result);
+				}
+  			});
 }
-
-
+//get total number of tasks in database
+module.exports.getCount = function(callback){
+	Task.count({},function(err,count) {
+		if(err) {
+			throw err;
+		} else {
+			return callback(null, count);
+		}
+	})
+}
 
 //get one task by id
 module.exports.getTaskById = function(id,callback){
@@ -44,7 +56,6 @@ module.exports.addTask = function(newTask,callback){
 }
 
 //update a task
-
 module.exports.updateTitle = function(task,id,callback){
 	var query = {_id: id};
 	var update = {
@@ -62,8 +73,8 @@ module.exports.updateTitle = function(task,id,callback){
 		}
 	});
 }
-//delete a task
 
+//delete a task
 module.exports.deleteTask = function(id,callback){
 	Task.remove({ _id: id },function(err,result){
 		if(err){

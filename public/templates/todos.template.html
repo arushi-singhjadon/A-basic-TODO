@@ -2,11 +2,17 @@
  	
     <div class="jumbotron">
 		<h1>A Simple todo Application
-             <span class="label label-info">{{ todos.length }}</span>
+            <span class="label label-info">{{ count }}</span> 
         </h1> 
 	    <p>Manage your daily todos here</p> 
 	</div>
-		  
+		
+    
+    <!-- <div class="checkbox">
+      <label><input type="checkbox" value="">Option 1</label>
+    </div> -->
+    
+  
     <span> Number of todos to be displayed : 
       <select ng-model='form1.type' required ng-options='option.value as option.value for option in arr'
               ng-change='change()'>
@@ -14,6 +20,7 @@
     </span>
 
      
+
     <center>
         <table class= "table table-nonfluid table-striped ">
             <thead>
@@ -62,10 +69,9 @@
             </tbody>
         </table>
 
-        <pagination boundary-links="true" max-size="3" items-per-page="numPerPage" total-items="todos.length" 
-                    ng-model="CurrentPage" ng-change="pageChanged()">
-    					
-        </pagination> 
+        <pagination boundary-links="true" max-size="3" items-per-page="numPerPage" total-items= "count" 
+                    ng-model="currentPage" ng-change="pageChanged()">   
+        </pagination>
     
     </center>
 </div>
