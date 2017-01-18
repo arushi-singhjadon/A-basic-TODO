@@ -34,7 +34,12 @@
 
                 <tr ng-repeat = "todo in filteredTodos">
                     <td>
-                        <a href="#/{{todo._id}}">{{todo.title}}</a>
+                        <div class="checkbox">
+                            <input type="checkbox" ng-model="todo.status" ng-change="changeStatus(todo._id,todo.status)">
+                            <label class="done-{{todo.status}}">
+                                <a href="#/{{todo._id}}">{{todo.title}}</a>
+                            </label>
+                        </div>
                     </td>
                     <td>
                         {{todo.note}}

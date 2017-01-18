@@ -22,9 +22,8 @@ var taskSchema = mongoose.Schema({
 	},
 
 	status:{
-		type:String,
-		enum: ['done', 'progress', 'new'],
-		default:'new'
+		type:Boolean,
+		default:false
 	},
 
 	user:{

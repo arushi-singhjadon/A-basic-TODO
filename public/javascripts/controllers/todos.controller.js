@@ -7,7 +7,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 	    $scope.numPerPage = 5;
 	    $scope.currentPage = 1;
 	    $scope.page = 'list';
-
+	   // $scope.taskDone = true;
 		$scope.typeOptions = [
 		    { name: 'Personal', value: 'Personal' }, 
 		    { name: 'Grocery', value: 'Grocery' }, 
@@ -15,7 +15,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 		];
 
 		$scope.form = {type : $scope.typeOptions[0].value};
-
+		//console.log($scope.todo.status);
 		$scope.arr = [
 		    { value:1 }, 
 		    { value:2 },
@@ -68,6 +68,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 		//save a todo
 		$scope.postTodoCallback = function(result) {
 			console.log("Result saved: "+result);
+			Todos.getTodosinRange(0,0,true,$scope.getTodosCountCallback);
 		};
 
 		$scope.saveThis = function(){
@@ -90,13 +91,13 @@ angular.module('todoControllerModule', ['ngRoute'])
 		
 		$scope.save = function() {
 	        $scope.page = 'list';
-	        console.log($scope.x + " " + $scope.title);
-	        Todos.editTodo($scope.title, $scope.note, $scope.x, $scope.editTodoCallback);
+	        console.log($scope.id + " " + $scope.title);
+	        Todos.editTodo($scope.title, $scope.note, $scope.id,$scope.editTodoCallback);
 
 	    };
 
 	    $scope.edit = function(id,title,note){
-	    	$scope.x=id;
+	    	$scope.id=id;
 	    	$scope.title= title;
 	    	$scope.note = note;
 	    	$scope.page= 'editor';
@@ -104,6 +105,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 
 	    $scope.deleteTodoCallback = function(result) {
 			console.log("Result is: "+result);
+			Todos.getTodosinRange(0,0,true,$scope.getTodosCountCallback);
 		};
 
 	    $scope.delete = function(id) {
@@ -118,4 +120,13 @@ angular.module('todoControllerModule', ['ngRoute'])
 			console.log($scope.numPerPage);
 			$scope.figureOutTodosToDisplay();
 		};
+		$scope.editStatusCallback = function(result){
+			console.log(result);
+		};
+		$scope.changeStatus = function(id,status) {
+			//Todos.editTodo("","","",true,editTodoCallback);
+			//Todos.editStatus(id,status,$scope.editStatusCallback);
+			console.log(id+" "+status);
+		}
+		
 }]);

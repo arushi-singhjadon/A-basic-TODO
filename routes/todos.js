@@ -56,16 +56,17 @@ router.post('/', function(req,res,next){
 
 router.put('/:id', function(req,res,next){
 	var id= req.params.id;
-	var updatedTask = req.body;
-	console.log(updatedTask);
-	task.updateTitle(updatedTask,id,function(err,tasks){
-		if(err){
-			throw err;
-		} else{
-			res.status(200).send(tasks);
-		}
-		
-	});
+		var updatedTask = req.body;
+		console.log(updatedTask);
+		task.updateTitle(updatedTask,id,function(err,tasks){
+			if(err){
+				throw err;
+			} else{
+				res.status(200).send(tasks);
+			}
+			
+		});	
+	
 });
 
 router.delete('/:_id', function(req,res,next){

@@ -5,7 +5,8 @@ module.exports.getTasks = function(begin,end,callback){
    	var e = parseInt(end);
    	var b = parseInt(begin);
    	console.log("e= "+e+" and b= "+b);
-   	Task.find({status:{$ne:'done'}})
+   	//Task.find({status:{$ne:false}})
+   	Task.find()
    			.limit(e)
    			.skip(e*(b-1))
    			.sort({update_date: -1})
@@ -62,6 +63,24 @@ module.exports.updateTitle = function(task,id,callback){
 		title:task.title,
 		note:task.note,
 		update_date:new Date()
+	};
+	Task.findOneAndUpdate(query,update,function(err,result){
+		if(err) {
+			console.log(err);
+			throw err;
+		} else {
+			console.log(result);
+			return callback(null,result);
+		}
+	});
+}
+
+//update status task
+module.exports.updateStatus = function(id,st,callback){
+	var query = {_id: id};
+	var update = {
+		status:st
+		
 	};
 	Task.findOneAndUpdate(query,update,function(err,result){
 		if(err) {
