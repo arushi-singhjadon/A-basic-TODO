@@ -64,14 +64,18 @@ angular.module('todoService', ['ngRoute'])
 				});
 			},
 
-			editTodo: function(title, note, id, callback){
+			editTodo: function(title, note, id, toChange, status,callback){
 
 				$http({
 				 	method: 'PUT', 
 				 	url: '/todos/'+id,
+				 	params : {
+				 		toChange:toChange
+				 	},
 				 	data:{
 				 		'title' : title,
 				 		'note' : note,
+				 		'status' : status
 				 	}
 				 })
 
@@ -84,25 +88,25 @@ angular.module('todoService', ['ngRoute'])
 						console.error(response);
 				});
 			},
-			editStatus: function(id, status, callback){
+			// editStatus: function(id, status, callback){
 
-				$http({
-				 	method: 'PUT', 
-				 	url: '/todos/'+id,
-				 	data:{
-				 		'status':status
-				 	}
-				 })
+			// 	$http({
+			// 	 	method: 'PUT', 
+			// 	 	url: '/todos/'+id,
+			// 	 	data:{
+			// 	 		'status':status
+			// 	 	}
+			// 	 })
 
-				.success (function(response){
-						if(callback){
-							callback(response);
-						}
-				})
-				.error (function(response){
-						console.error(response);
-				});
-			},
+			// 	.success (function(response){
+			// 			if(callback){
+			// 				callback(response);
+			// 			}
+			// 	})
+			// 	.error (function(response){
+			// 			console.error(response);
+			// 																																																											});
+			// },
 
 			deleteTodo: function(id,callback){
 

@@ -92,7 +92,7 @@ angular.module('todoControllerModule', ['ngRoute'])
 		$scope.save = function() {
 	        $scope.page = 'list';
 	        console.log($scope.id + " " + $scope.title);
-	        Todos.editTodo($scope.title, $scope.note, $scope.id,$scope.editTodoCallback);
+	        Todos.editTodo($scope.title, $scope.note, $scope.id,false,false,$scope.editTodoCallback);
 
 	    };
 
@@ -110,7 +110,8 @@ angular.module('todoControllerModule', ['ngRoute'])
 
 	    $scope.delete = function(id) {
 	    	Todos.deleteTodo(id,$scope.deleteTodoCallback);
-	    	$scope.reloadRoute();
+	    	//$scope.reloadRoute();
+	    	$scope.figureOutTodosToDisplay();
 	    };
 
 
@@ -120,13 +121,15 @@ angular.module('todoControllerModule', ['ngRoute'])
 			console.log($scope.numPerPage);
 			$scope.figureOutTodosToDisplay();
 		};
+
 		$scope.editStatusCallback = function(result){
 			console.log(result);
 		};
+
 		$scope.changeStatus = function(id,status) {
-			//Todos.editTodo("","","",true,editTodoCallback);
+			Todos.editTodo("","",id,true,status,$scope.editTodoCallback);
 			//Todos.editStatus(id,status,$scope.editStatusCallback);
-			console.log(id+" "+status);
+			//console.log(id+" "+status);
 		}
 		
 }]);

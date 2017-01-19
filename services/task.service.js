@@ -76,21 +76,31 @@ module.exports.updateTitle = function(task,id,callback){
 }
 
 //update status task
-module.exports.updateStatus = function(id,st,callback){
-	var query = {_id: id};
-	var update = {
-		status:st
+module.exports.updateStatus = function(task,id,callback){
+	// var query = {_id: id};
+	// var update = {
+	// 	status:st
 		
-	};
-	Task.findOneAndUpdate(query,update,function(err,result){
+	// };
+	// Task.findOneAndUpdate(query,update,function(err,result){
+	// 	if(err) {
+	// 		console.log(err);
+	// 		throw err;
+	// 	} else {
+	// 		console.log(result);
+	// 		return callback(null,result);
+	// 	}
+	// });
+	console.log("calling updateStatus");
+	Task.update({_id: id}, {$set: {status: task.status}}, function(err,result){
 		if(err) {
 			console.log(err);
 			throw err;
 		} else {
-			console.log(result);
+			//console.log(result);
 			return callback(null,result);
 		}
-	});
+	}); 
 }
 
 //delete a task

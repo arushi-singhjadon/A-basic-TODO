@@ -57,15 +57,29 @@ router.post('/', function(req,res,next){
 router.put('/:id', function(req,res,next){
 	var id= req.params.id;
 		var updatedTask = req.body;
-		console.log(updatedTask);
-		task.updateTitle(updatedTask,id,function(err,tasks){
-			if(err){
-				throw err;
-			} else{
-				res.status(200).send(tasks);
-			}
+		if(req.query.toChange == "false"){
+			//console.log("task= "+updatedTask);
+			console.log("updating title and note");
+			task.updateTitle(updatedTask,id,function(err,tasks){
+				if(err){
+					throw err;
+				} else {
+					res.status(200).send(tasks);
+				}
 			
-		});	
+			});	
+		} else {
+			console.log("updating only status");
+			task.updateStatus(updatedTask,id,function(err,tasks){
+				if(err){
+					throw err;
+				} else {
+					res.status(200).send(tasks);
+				}
+			
+			});
+		}
+			
 	
 });
 

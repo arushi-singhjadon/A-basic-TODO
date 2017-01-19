@@ -10,7 +10,7 @@ angular.module('todoDetailsControllerModule', ['ngRoute'])
 			} else {
 				$scope.taskStatus = "New";
 			}
-			console.log($scope.taskStatus);
+			//console.log($scope.taskStatus);
 		}	
 	    Todos.getTodoDetails($routeParams.id,$scope.getTodoDetailsCallback);
 	    //console.log($scope.todo.status);
